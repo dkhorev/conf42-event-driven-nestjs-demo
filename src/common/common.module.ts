@@ -7,7 +7,6 @@ import { QUEUE_DEFAULT } from './const';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      cache: true,
     }),
     BullModule.forRootAsync({
       imports: [ConfigModule],

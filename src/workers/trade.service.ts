@@ -12,6 +12,6 @@ export class TradeService {
   @Process()
   async process(job: Job<TradeCreatedDto>) {
     await delay(3000);
-    this.logger.log(job.data);
+    // this.logger.log(job.data);
   }
 }

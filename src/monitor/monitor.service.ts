@@ -1,0 +1,45 @@
+import { InjectQueue } from '@nestjs/bull';
+import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { Cron, CronExpression } from '@nestjs/schedule';
+import { Queue } from 'bull';
+import { QUEUE_DEFAULT } from '../common/const';
+import Redis from 'ioredis';
+
+@Injectable()
+export class MonitorService {
+  private readonly redis: Redis;
+
+  constructor(
+    @InjectQueue(QUEUE_DEFAULT) private queue: Queue,
+    private readonly config: ConfigService,
+  ) {
+    console.log(config);
+    this.redis = new Redis({
+      host: config.get('REDIS_HOST') || '127.0.0.1',
+      port: this.config.get('REDIS_PORT') || 6379,
+      password: config.get('REDIS_PASSWORD') || undefined,
+      db: 2,
+    });
+  }
+
+  @Cron(CronExpression.EVERY_SECOND)
+  async report() {
+    const data = [
+      {
+        queue: QUEUE_DEFAULT,
+        waiting: await this.queue.getWaitingCount(),
+        processes: (
+          await this.redis.zrangebyscore(
+            'workers:timestamps',
+            Date.now() - 2000,
+            Date.now(),
+          )
+        )?.length,
+      },
+    ];
+
+    console.clear();
+    console.table(data);
+  }
+}
