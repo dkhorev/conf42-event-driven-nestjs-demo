@@ -1,8 +1,12 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
+import { Logger } from '@nestjs/common';
+import { rolesMapBootstrap } from './container-role';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
-  await app.listen(3000);
+  const role = process.env.CONTAINER_ROLE || 'worker';
+
+  await rolesMapBootstrap[role]();
+
+  const logger = new Logger();
+  logger.log(`Container role: ${role}`);
 }
 bootstrap();
