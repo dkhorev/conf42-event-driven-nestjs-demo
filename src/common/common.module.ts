@@ -17,8 +17,8 @@ import { QUEUE_DEFAULT } from './const';
           password: configService.get('REDIS_PASSWORD') || undefined,
         },
         defaultJobOptions: {
-          removeOnComplete: true,
-          removeOnFail: true,
+          // removeOnComplete: true,
+          // removeOnFail: true,
         },
       }),
       inject: [ConfigService],

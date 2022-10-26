@@ -10,7 +10,6 @@ export class KeepAliveService {
   private readonly redis: Redis;
 
   constructor(private readonly config: ConfigService) {
-    console.log(this.uuid);
     this.redis = new Redis({
       host: config.get('REDIS_HOST') || '127.0.0.1',
       port: this.config.get('REDIS_PORT') || 6379,

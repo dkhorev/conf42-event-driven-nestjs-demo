@@ -14,7 +14,6 @@ export class MonitorService {
     @InjectQueue(QUEUE_DEFAULT) private queue: Queue,
     private readonly config: ConfigService,
   ) {
-    console.log(config);
     this.redis = new Redis({
       host: config.get('REDIS_HOST') || '127.0.0.1',
       port: this.config.get('REDIS_PORT') || 6379,
@@ -28,8 +27,9 @@ export class MonitorService {
     const data = [
       {
         queue: QUEUE_DEFAULT,
-        waiting: await this.queue.getWaitingCount(),
-        processes: (
+        jobs_waiting: await this.queue.getWaitingCount(),
+        jobs_completed: await this.queue.getCompletedCount(),
+        workers_count: (
           await this.redis.zrangebyscore(
             'workers:timestamps',
             Date.now() - 2000,

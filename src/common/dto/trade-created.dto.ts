@@ -1,1 +1,3 @@
-export class TradeCreatedDto {}
+export class TradeCreatedDto {
+  uuid: string;
+}
