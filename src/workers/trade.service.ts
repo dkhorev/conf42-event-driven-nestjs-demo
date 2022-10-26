@@ -11,9 +11,7 @@ export class TradeService {
 
   @Process({ concurrency: 1 })
   async process(job: Job<TradeCreatedDto>) {
+    await delay(3000);
     this.logger.log(job.data.uuid);
-    job.moveToCompleted().then(async () => {
-      await delay(200);
-    });
   }
 }
