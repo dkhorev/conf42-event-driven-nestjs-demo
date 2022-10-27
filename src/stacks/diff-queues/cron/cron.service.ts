@@ -21,7 +21,7 @@ export class CronService {
     @InjectQueue(QUEUE_DEFAULT) private queue: Queue,
     @InjectQueue(QUEUE_TRADES) private queueTrades: Queue,
   ) {
-    this.tradesPercycle = 3;
+    this.tradesPercycle = 5;
   }
 
   @Cron(CronExpression.EVERY_SECOND)

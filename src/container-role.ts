@@ -7,20 +7,24 @@ import { WorkersModule } from './stacks/default/workers/workers.module';
 import { CronModuleIssue1 } from './stacks/issue1/cron/cron.module';
 
 export const rolesMapBootstrap = {
+  monitor: async () => {
+    return await NestFactory.createApplicationContext(MonitorModule);
+  },
+
+  // default stack
   cron: async () => {
     return await NestFactory.createApplicationContext(CronModule);
   },
   worker: async () => {
     return await NestFactory.createApplicationContext(WorkersModule);
   },
+
   // issue 1: increased traffic
   cron_issue1: async () => {
     return await NestFactory.createApplicationContext(CronModuleIssue1);
   },
+
   // step 1 upgrade
-  monitor: async () => {
-    return await NestFactory.createApplicationContext(MonitorModule);
-  },
   cron_1: async () => {
     return await NestFactory.createApplicationContext(CronModuleStep1);
   },

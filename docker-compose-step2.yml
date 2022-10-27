@@ -24,7 +24,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      - CONTAINER_ROLE=cron_2
+      - CONTAINER_ROLE=cron_1
       - REDIS_HOST=redis
     volumes:
       - .:/app
@@ -42,7 +42,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      - CONTAINER_ROLE=worker_2
+      - CONTAINER_ROLE=worker_1
       - REDIS_HOST=redis
     volumes:
       - .:/app

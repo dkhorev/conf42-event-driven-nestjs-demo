@@ -19,6 +19,9 @@ stop-step1:
 start-step2:
 	docker-compose -f docker-compose-step2.yml up -d
 
+stop-step2:
+	docker-compose -f docker-compose-step2.yml down
+
 watch:
 	docker logs -f conf42-event-driven-nestjs-demo_worker_1
 
