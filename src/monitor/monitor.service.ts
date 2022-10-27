@@ -53,6 +53,6 @@ export class MonitorService {
     ];
 
     console.clear();
-    console.table(data);
+    console.table(data.filter((d) => d.jobs_completed > 0));
   }
 }
