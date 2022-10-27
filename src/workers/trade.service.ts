@@ -9,9 +9,9 @@ import { delay } from '../common/utils/delay';
 export class TradeService {
   protected readonly logger = new Logger(this.constructor.name);
 
-  @Process('*')
+  @Process({ name: '*', concurrency: 1 })
   async process(job: Job<TradeCreatedDto>) {
-    await delay(3000);
+    await delay(150);
     this.logger.log(`${job.name} - ${job.data.uuid}`);
   }
 }
