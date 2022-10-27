@@ -17,22 +17,6 @@ services:
         max-size: "100k"
         max-file: "1"
 
-  monitor:
-    image: conf42-demo:latest
-    deploy:
-      mode: replicated
-      replicas: 1
-      restart_policy:
-        condition: on-failure
-    environment:
-      - CONTAINER_ROLE=monitor
-      - REDIS_HOST=redis
-    logging:
-      driver: json-file
-      options:
-        max-size: "100k"
-        max-file: "1"
-
   cron:
     image: conf42-demo:latest
     deploy:
@@ -42,6 +26,8 @@ services:
     environment:
       - CONTAINER_ROLE=cron
       - REDIS_HOST=redis
+    volumes:
+      - .:/app
     logging:
       driver: json-file
       options:
@@ -58,6 +44,8 @@ services:
     environment:
       - CONTAINER_ROLE=worker
       - REDIS_HOST=redis
+    volumes:
+      - .:/app
     logging:
       driver: json-file
       options:
