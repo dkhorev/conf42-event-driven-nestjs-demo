@@ -16,10 +16,6 @@ import { QUEUE_DEFAULT } from './const';
           port: +configService.get('REDIS_PORT') || 6379,
           password: configService.get('REDIS_PASSWORD') || undefined,
         },
-        defaultJobOptions: {
-          // removeOnComplete: true,
-          // removeOnFail: true,
-        },
       }),
       inject: [ConfigService],
     }),
