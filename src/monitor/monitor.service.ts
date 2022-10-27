@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { Cron, CronExpression } from '@nestjs/schedule';
 import { Queue } from 'bull';
-import { QUEUE_DEFAULT } from '../common/const';
+import { QUEUE_DEFAULT, QUEUE_TRADES } from '../common/const';
 import Redis from 'ioredis';
 
 @Injectable()
@@ -12,6 +12,7 @@ export class MonitorService {
 
   constructor(
     @InjectQueue(QUEUE_DEFAULT) private queue: Queue,
+    @InjectQueue(QUEUE_TRADES) private queueTrades: Queue,
     private readonly config: ConfigService,
   ) {
     this.redis = new Redis({
@@ -29,6 +30,18 @@ export class MonitorService {
         queue: QUEUE_DEFAULT,
         jobs_waiting: await this.queue.getWaitingCount(),
         jobs_completed: await this.queue.getCompletedCount(),
+        workers_count: (
+          await this.redis.zrangebyscore(
+            'workers:timestamps',
+            Date.now() - 2000,
+            Date.now(),
+          )
+        )?.length,
+      },
+      {
+        queue: QUEUE_TRADES,
+        jobs_waiting: await this.queueTrades.getWaitingCount(),
+        jobs_completed: await this.queueTrades.getCompletedCount(),
         workers_count: (
           await this.redis.zrangebyscore(
             'workers:timestamps',

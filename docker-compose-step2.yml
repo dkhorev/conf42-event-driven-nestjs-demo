@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - mode: host
+        published: 6379
+        target: 6379
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    logging:
+      driver: json-file
+      options:
+        max-size: "100k"
+        max-file: "1"
+
+  cron:
+    image: conf42-demo:latest
+    deploy:
+      mode: global
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CONTAINER_ROLE=cron_2
+      - REDIS_HOST=redis
+    volumes:
+      - .:/app
+    logging:
+      driver: json-file
+      options:
+        max-size: "100k"
+        max-file: "1"
+
+  worker:
+    image: conf42-demo:latest
+    deploy:
+      mode: replicated
+      replicas: 3
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CONTAINER_ROLE=worker_2
+      - REDIS_HOST=redis
+    volumes:
+      - .:/app
+    logging:
+      driver: json-file
+      options:
+        max-size: "100k"
+        max-file: "1"

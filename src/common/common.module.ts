@@ -1,7 +1,7 @@
 import { BullModule } from '@nestjs/bull';
 import { Module } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { QUEUE_DEFAULT } from './const';
+import { QUEUE_DEFAULT, QUEUE_TRADES } from './const';
 
 @Module({
   imports: [
@@ -21,6 +21,9 @@ import { QUEUE_DEFAULT } from './const';
     }),
     BullModule.registerQueue({
       name: QUEUE_DEFAULT,
+    }),
+    BullModule.registerQueue({
+      name: QUEUE_TRADES,
     }),
   ],
   exports: [BullModule],

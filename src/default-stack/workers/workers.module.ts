@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { ScheduleModule } from '@nestjs/schedule';
-import { CommonModule } from '../common/common.module';
+import { CommonModule } from '../../common/common.module';
 import { KeepAliveService } from './keep-alive.service';
 import { TradeService } from './trade.service';
 
