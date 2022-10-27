@@ -1,9 +1,9 @@
 import { NestFactory } from '@nestjs/core';
-import { CronModule } from './default-stack/cron/cron.module';
-import { CronModuleStep1 } from './diff-queues-stack/cron/cron.module';
-import { WorkersModuleStep1 } from './diff-queues-stack/workers/workers.module';
+import { CronModule } from './stacks/default/cron/cron.module';
+import { CronModuleStep1 } from './stacks/diff-queues/cron/cron.module';
+import { WorkersModuleStep1 } from './stacks/diff-queues/workers/workers.module';
 import { MonitorModule } from './monitor/monitor.module';
-import { WorkersModule } from './default-stack/workers/workers.module';
+import { WorkersModule } from './stacks/default/workers/workers.module';
 
 export const rolesMapBootstrap = {
   cron: async () => {
