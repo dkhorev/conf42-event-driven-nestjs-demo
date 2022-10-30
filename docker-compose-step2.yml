@@ -34,7 +34,25 @@ services:
         max-size: "100k"
         max-file: "1"
 
-  worker:
+  worker-trade:
+    image: conf42-demo:latest
+    deploy:
+      mode: replicated
+      replicas: 1
+      restart_policy:
+        condition: on-failure
+    environment:
+      - CONTAINER_ROLE=worker_trade
+      - REDIS_HOST=redis
+    volumes:
+      - .:/app
+    logging:
+      driver: json-file
+      options:
+        max-size: "100k"
+        max-file: "1"
+
+  worker-default:
     image: conf42-demo:latest
     deploy:
       mode: replicated
@@ -42,7 +60,7 @@ services:
       restart_policy:
         condition: on-failure
     environment:
-      - CONTAINER_ROLE=worker_1
+      - CONTAINER_ROLE=worker_default
       - REDIS_HOST=redis
     volumes:
       - .:/app

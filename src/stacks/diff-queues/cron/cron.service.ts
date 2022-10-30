@@ -31,6 +31,7 @@ export class CronService {
       this.queue.add(JOB_ANALYTICS, { uuid });
       this.queue.add(JOB_NOTIFICATION, { uuid });
       this.queue.add(JOB_STORE, { uuid });
+      // this.queue.add(JOB_TRADE_CONFIRM, { uuid });
       this.queueTrades.add(JOB_TRADE_CONFIRM, { uuid });
       this.logger.log(`Trade ${uuid} created`);
     }
