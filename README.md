@@ -1,6 +1,6 @@
 # Scalable event-driven applications with NestJS (demo)
 
-Join me for a talk on developing scalable event-driven applications with NestJS.
+Join me for a talk on developing [scalable event-driven applications with NestJS](https://www.conf42.com/JavaScript_2022_Dmitry_Khorev_scalable_eventdriven_applications_nestjs).
 
 If you’ve never tried NestJS - I’ll talk briefly about its advantages and use cases it can solve for you.
 
