@@ -1,4 +1,4 @@
-export const QUEUE_DEFAULT = 'defalut';
+export const QUEUE_DEFAULT = 'default';
 export const QUEUE_TRADES = 'trades';
 
 export const JOB_ANALYTICS = 'analytics';
